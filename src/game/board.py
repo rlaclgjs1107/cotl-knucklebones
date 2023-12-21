@@ -59,7 +59,7 @@ class Board:
     def is_valid_line_n(n) -> bool:
         return 0 <= n < LINE_N
 
-    def get_current_board_values(self) -> list[list[int]]:
+    def get_board_values(self) -> list[list[int]]:
         board_values: list[list[int]] = []
 
         for line in self.__board:
