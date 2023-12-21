@@ -1,4 +1,5 @@
 from collections import Counter
+
 from game.dice import is_dice_value
 
 EMPTY = 0
@@ -39,22 +40,15 @@ class Line:
         return True
 
     def remove_value(self, value: int):
-        for index, _value in enumerate(self.__line):
-            if _value == value:
-                self.__line[index] = EMPTY
-
-        self.__sort()
-
-    def __sort(self):
-        first_non_empty_index = next(
-            (i for i, v in enumerate(self.__line) if v != EMPTY), None
-        )
-        if first_non_empty_index is None:
-            return
-        self.__line = (
-            self.__line[first_non_empty_index:] + self.__line[:first_non_empty_index]
-        )
-        self.__count -= first_non_empty_index
+        new_line: list[int] = []
+        new_count: int = 0
+        for _value in self.__line:
+            if _value != value:
+                new_line.append(_value)
+                new_count += 1
+        new_line = new_line + [EMPTY] * (LINE_DEPTH - new_count)
+        self.__line = new_line
+        self.__count = new_count
 
 
 class Board:
