@@ -56,7 +56,7 @@ class Board:
         self.__board: list[Line] = [Line() for _ in range(LINE_N)]
 
     @staticmethod
-    def is_valid_line_n(n) -> bool:
+    def is_valid_line_n(n: int) -> bool:
         return 0 <= n < LINE_N
 
     def get_board_values(self) -> list[list[int]]:
