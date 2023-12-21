@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "cotl-knucklebones"
+version = "0.1.0"
+description = ""
+authors = ["Kim Chiheon <rlaclgjs1107@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "game", from = "src" },
+    { include = "tests"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest = "^7.4.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
