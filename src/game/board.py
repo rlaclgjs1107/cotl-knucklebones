@@ -83,13 +83,13 @@ class Board:
         return available_lines
 
     def add_value_in_line(self, line_n: int, value: int) -> bool:
-        if not is_dice_value(value) or Board.is_valid_line_n(line_n):
+        if not is_dice_value(value) or not Board.is_valid_line_n(line_n):
             return False
 
         return self.__board[line_n].add_value(value)
 
     def remove_value_in_line(self, line_n: int, value: int) -> bool:
-        if not is_dice_value(value) or Board.is_valid_line_n(line_n):
+        if not is_dice_value(value) or not Board.is_valid_line_n(line_n):
             return False
 
         self.__board[line_n].remove_value(value)
