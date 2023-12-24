@@ -74,7 +74,10 @@ class TUI(Observer):
             print(
                 UI_PRINT.format(
                     playing_player_no=playing_player_no + 1,
-                    available_lines=game.get_player_available_lines(playing_player_no),
+                    available_lines=[
+                        x + 1
+                        for x in game.get_player_available_lines(playing_player_no)
+                    ],
                 )
             )
 
@@ -97,9 +100,18 @@ class TUI(Observer):
         while replay:
             self.game.play_game()
             while self.game.get_state() == GAME_STATE_PLAY:
-                line_no = int(input())
+                line_no = int(input()) - 1
+                while not self.__check_input(line_no):
+                    print("invalid input")
+                    line_no = int(input()) - 1
                 self.game.player_move(self.game.get_current_player_no(), line_no)
             replay = input("replay? y/n") == "y"
+
+    def __check_input(self, user_input: int) -> bool:
+        available_lines = self.game.get_player_available_lines(
+            self.game.get_current_player_no()
+        )
+        return user_input in available_lines
 
 
 if __name__ == "__main__":
