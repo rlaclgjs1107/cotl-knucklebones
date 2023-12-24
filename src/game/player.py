@@ -17,5 +17,8 @@ class Player:
     def get_available_lines(self) -> list[int]:
         return self.__my_board.get_available_lines()
 
-    def play(self, line_no: int, value: int) -> bool:
+    def place_dice(self, line_no: int, value: int) -> bool:
         return self.__my_board.add_value_in_line(line_no, value)
+
+    def remove_dice(self, line_no: int, value: int) -> bool:
+        return self.__my_board.remove_value_in_line(line_no, value)
