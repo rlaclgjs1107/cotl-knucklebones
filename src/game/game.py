@@ -93,7 +93,9 @@ class Game:
         assert self.is_valid_player_no(player_no)
         assert line_no in self.get_player_available_lines(player_no)
 
-        self.__players[player_no].play(line_no, self.__dice_value)
+        other_no = (player_no + 1) % 2
+        self.__players[player_no].place_dice(line_no, self.__dice_value)
+        self.__players[other_no].remove_dice(line_no, self.__dice_value)
 
         if self.check_end():
             self.end_game()
