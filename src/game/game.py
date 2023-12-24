@@ -3,9 +3,10 @@ from secrets import randbelow
 from game.dice import roll_dice
 from game.player import Player
 
-GAME_STATE_START = 0
-GAME_STATE_PLAY = 1
-GAME_STATE_END = 2
+GAME_STATE_INIT = 0
+GAME_STATE_START = 1
+GAME_STATE_PLAY = 2
+GAME_STATE_END = 3
 
 
 class Observer:
@@ -19,7 +20,7 @@ class Game:
         self.__turn: int
         self.__first_player: int
         self.__dice_value: int
-        self.__state: int = GAME_STATE_START
+        self.__state: int = GAME_STATE_INIT
         self.__observers: list[Observer] = []
 
     def notify(self):
@@ -66,7 +67,7 @@ class Game:
         return self.__winner
 
     def start_game(self):
-        assert self.__state == GAME_STATE_START or self.__state == GAME_STATE_END
+        assert self.__state == GAME_STATE_INIT or self.__state == GAME_STATE_END
         self.__turn = 0
         self.__players = (Player(), Player())
         self.__first_player = randbelow(2)

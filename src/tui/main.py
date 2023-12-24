@@ -6,6 +6,10 @@ from tui.template import PLAYER_ONE_PRINT, PLAYER_TWO_PRINT, UI_PRINT, VS_PRINT
 class TUI(Observer):
     def __init__(self, game: Game):
         game.register(self)
+        self.game = game
+
+    def __print_start_screen(self, game: Game):
+        print("start screen")
 
     def __print_screen(self, game: Game):
         state = game.get_state()
@@ -79,33 +83,26 @@ class TUI(Observer):
 
     def update(self, game: Game):
         if game.get_state() == GAME_STATE_START:
-            self.__print_screen(game)
-            game.play_game()
+            self.__print_start_screen(game)
 
         elif game.get_state() == GAME_STATE_PLAY:
             self.__print_screen(game)
 
-            line_no = int(input())
-            while line_no not in game.get_player_available_lines(
-                game.get_current_player_no()
-            ):
-                line_no = int(input())
-
-            game.player_move(
-                game.get_current_player_no(),
-                line_no,
-            )
-
         elif game.get_state() == GAME_STATE_END:
             self.__print_end_screen(game)
-            replay = input()
-            if replay == "y":
-                game.start_game()
-            else:
-                exit()
+
+    def main(self):
+        self.game.start_game()
+        replay = True
+        while replay:
+            self.game.play_game()
+            while self.game.get_state() == GAME_STATE_PLAY:
+                line_no = int(input())
+                self.game.player_move(self.game.get_current_player_no(), line_no)
+            replay = input("replay? y/n") == "y"
 
 
 if __name__ == "__main__":
     game = Game()
     tui = TUI(game)
-    game.start_game()
+    tui.main()
