@@ -53,7 +53,7 @@ class Game:
         return self.__turn
 
     def get_current_player_no(self) -> int:
-        return self.__turn % 2 + self.__first_player
+        return (self.__turn + self.__first_player) % 2
 
     def get_dice_value(self) -> int:
         return self.__dice_value
