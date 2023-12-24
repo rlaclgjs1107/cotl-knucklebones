@@ -43,7 +43,7 @@ class Line:
         new_line: list[int] = []
         new_count: int = 0
         for _value in self.__line:
-            if _value != value:
+            if _value != value and _value != EMPTY:
                 new_line.append(_value)
                 new_count += 1
         new_line = new_line + [EMPTY] * (LINE_DEPTH - new_count)
